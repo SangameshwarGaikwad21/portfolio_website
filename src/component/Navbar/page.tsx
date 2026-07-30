@@ -1,22 +1,158 @@
-import React from "react";
+"use client";
 
-const Navbar = () => {
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { Menu, Sun, X } from "lucide-react";
+
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const navigation = ["About", "Projects", "Resume"];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="bg-gradient-to-r from-purple-900 via-gray-800 to-black text-white">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
-        <h1 className="text-2xl font-bold">CodeWithSangam</h1>
+    <header className="fixed inset-x-0 top-5 z-50 flex justify-center px-4">
+      <nav
+        className={`rounded-3xl border border-white/20 backdrop-blur-xl transition-all duration-500
+        ${
+          scrolled
+            ? "w-full max-w-6xl bg-white/70 px-5 py-3 shadow-2xl"
+            : "w-full max-w-7xl bg-white/40 px-6 py-5"
+        }`}
+      >
+        {/* ================= Desktop ================= */}
 
-        <ul className="flex gap-8 text-lg font-medium">
-          <li className="hover:text-purple-400 cursor-pointer">Home</li>
-          <li className="hover:text-purple-400 cursor-pointer">About</li>
-          <li className="hover:text-purple-400 cursor-pointer">Projects</li>
-          <li className="hover:text-purple-400 cursor-pointer">Contact</li>
-        </ul>
+        <div className="hidden md:grid grid-cols-[auto_1fr_auto] items-center">
+          {/* Logo */}
+          <Link
+            href="/"
+            className={`flex items-center transition-all duration-500 ${
+              scrolled ? "gap-2" : "gap-4"
+            }`}
+          >
+            <div
+              className={`rounded-xl bg-gradient-to-br from-violet-500 to-cyan-400 transition-all duration-500 ${
+                scrolled ? "h-9 w-9" : "h-12 w-12"
+              }`}
+            />
 
-      </div>
+            <h1
+              className={`font-black transition-all duration-500 ${
+                scrolled
+                  ? "text-3xl md:text-3xl lg:text-4xl"
+                  : "text-4xl md:text-4xl lg:text-5xl"
+              }`}
+            >
+              Sangam
+            </h1>
+          </Link>
 
-    </nav>
+          {/* Navigation */}
+          <div className="flex justify-center">
+            <ul
+              className={`flex items-center transition-all duration-500 ${
+                scrolled
+                  ? "gap-5 md:gap-6 lg:gap-9"
+                  : "gap-6 md:gap-8 lg:gap-12"
+              }`}
+            >
+              {navigation.map((item) => (
+                <li key={item}>
+                  <Link
+                    href={`${item.toLowerCase()}`}
+                    className="group relative text-base md:text-lg lg:text-xl font-semibold text-slate-700 transition hover:text-black"
+                  >
+                    {item}
+
+                    <span className="absolute -bottom-1 left-1/2 h-0.5 w-0 -translate-x-1/2 rounded-full bg-gradient-to-r from-violet-500 to-cyan-400 transition-all duration-300 group-hover:w-full"></span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Right Side */}
+          <div
+            className={`flex items-center transition-all duration-500 ${
+              scrolled
+                ? "gap-2 md:gap-3 lg:gap-4"
+                : "gap-3 md:gap-4 lg:gap-5"
+            }`}
+          >
+            <button
+              className={`grid place-items-center rounded-2xl border border-white/40 bg-white/70 shadow-md transition-all duration-500 hover:scale-105 ${
+                scrolled ? "h-10 w-10" : "h-12 w-12"
+              }`}
+            >
+              <Sun size={20} className="text-yellow-500" />
+            </button>
+
+            <button
+              className={`rounded-2xl bg-slate-900 font-semibold text-white shadow-lg transition-all duration-500 hover:bg-violet-600 ${
+                scrolled
+                  ? "px-4 py-2 text-sm"
+                  : "px-5 md:px-6 lg:px-7 py-2.5 lg:py-3 text-sm lg:text-base"
+              }`}
+            >
+              Let's Talk
+            </button>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between md:hidden">
+          <Link href="/" className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-400" />
+
+            <h1 className="text-3xl font-black">Sangam</h1>
+          </Link>
+
+          <button onClick={() => setMenuOpen(!menuOpen)}>
+            {menuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+
+        <div
+          className={`overflow-hidden transition-all duration-500 md:hidden ${
+            menuOpen ? "mt-6 max-h-96" : "max-h-0"
+          }`}
+        >
+          <ul className="flex flex-col items-center gap-6">
+            {navigation.map((item) => (
+              <li key={item}>
+                <Link
+                  href={`${item.toLowerCase()}`}
+                  onClick={() => setMenuOpen(false)}
+                  className="text-lg font-semibold"
+                >
+                  {item}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-6 flex items-center justify-center gap-4">
+            <button className="grid h-11 w-11 place-items-center rounded-2xl border border-white/30 bg-white/70 shadow">
+              <Sun />
+            </button>
+
+            <button className="rounded-2xl bg-slate-900 px-6 py-3 text-white">
+              Let's Talk
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
   );
-};
-
-export default Navbar;
+}
