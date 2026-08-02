@@ -2,13 +2,18 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Menu, Sun, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const navigation = ["About", "Projects", "Resume"];
+  const navigation = [
+  { name: "Home", id: "home" },
+  { name: "About", id: "about" },
+  { name: "Projects", id: "projects" },
+  { name: "Skills", id: "skills" },
+];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,8 +25,17 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+        const scrollToSection = (id) => {
+        document.getElementById(id)?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+
+        setMenuOpen(false);
+      };
+
   return (
-    <header className="fixed inset-x-0 top-5 z-50 flex justify-center px-4">
+    <header className="fixed inset-x-0 top-5 z-50 flex justify-center px-4 ">
       <nav
         className={`rounded-3xl border border-white/20 backdrop-blur-xl transition-all duration-500
         ${
@@ -47,7 +61,7 @@ export default function Navbar() {
             />
 
             <h1
-              className={`font-black transition-all duration-500 ${
+              className={`transition-all duration-500 ${
                 scrolled
                   ? "text-3xl md:text-3xl lg:text-4xl"
                   : "text-4xl md:text-4xl lg:text-5xl"
@@ -67,15 +81,15 @@ export default function Navbar() {
               }`}
             >
               {navigation.map((item) => (
-                <li key={item}>
-                  <Link
-                    href={`${item.toLowerCase()}`}
-                    className="group relative text-base md:text-lg lg:text-xl font-semibold text-slate-700 transition hover:text-black"
+                <li key={item.id}>
+                  <button
+                    onClick={() => scrollToSection(item.id)}
+                    className="group relative text-base md:text-lg lg:text-xl text-slate-700 transition hover:text-black"
                   >
-                    {item}
+                    {item.name}
 
                     <span className="absolute -bottom-1 left-1/2 h-0.5 w-0 -translate-x-1/2 rounded-full bg-gradient-to-r from-violet-500 to-cyan-400 transition-all duration-300 group-hover:w-full"></span>
-                  </Link>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -90,21 +104,13 @@ export default function Navbar() {
             }`}
           >
             <button
-              className={`grid place-items-center rounded-2xl border border-white/40 bg-white/70 shadow-md transition-all duration-500 hover:scale-105 ${
-                scrolled ? "h-10 w-10" : "h-12 w-12"
-              }`}
-            >
-              <Sun size={20} className="text-yellow-500" />
-            </button>
-
-            <button
               className={`rounded-2xl bg-slate-900 font-semibold text-white shadow-lg transition-all duration-500 hover:bg-violet-600 ${
                 scrolled
                   ? "px-4 py-2 text-sm"
                   : "px-5 md:px-6 lg:px-7 py-2.5 lg:py-3 text-sm lg:text-base"
               }`}
             >
-              Let's Talk
+              Contact Me
             </button>
           </div>
         </div>
@@ -130,25 +136,20 @@ export default function Navbar() {
         >
           <ul className="flex flex-col items-center gap-6">
             {navigation.map((item) => (
-              <li key={item}>
-                <Link
-                  href={`${item.toLowerCase()}`}
-                  onClick={() => setMenuOpen(false)}
-                  className="text-lg font-semibold"
-                >
-                  {item}
-                </Link>
-              </li>
-            ))}
+                <li key={item.id}>
+                  <button
+                    onClick={() => scrollToSection(item.id)}
+                    className="text-lg font-semibold"
+                  >
+                    {item.name}
+                  </button>
+                </li>
+              ))}
           </ul>
 
           <div className="mt-6 flex items-center justify-center gap-4">
-            <button className="grid h-11 w-11 place-items-center rounded-2xl border border-white/30 bg-white/70 shadow">
-              <Sun />
-            </button>
-
             <button className="rounded-2xl bg-slate-900 px-6 py-3 text-white">
-              Let's Talk
+              Contact Me
             </button>
           </div>
         </div>
