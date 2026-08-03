@@ -47,7 +47,7 @@ export default function Navbar() {
         {/* ================= Desktop ================= */}
 
         <div className="hidden md:grid grid-cols-[auto_1fr_auto] items-center">
-          {/* Logo */}
+          
           <Link
             href="/"
             className={`flex items-center transition-all duration-500 ${
@@ -59,7 +59,6 @@ export default function Navbar() {
                 scrolled ? "h-9 w-9" : "h-12 w-12"
               }`}
             />
-
             <h1
               className={`transition-all duration-500 ${
                 scrolled
