@@ -102,23 +102,7 @@ export default function AboutPage() {
                 Tailwind CSS, and TypeScript.
               </span>
             </p>
-
-              <p>
-                I'm a final-year Computer Science Engineering student and a passionate{" "}
-                <span className="font-semibold text-white">
-                  Full Stack Developer
-                </span>{" "}
-                from Pune, India.
-              </p>
-
-              <p>
-                I enjoy building scalable and user-friendly web applications. My main stack
-                includes{" "}
-                <span className="font-semibold text-cyan-400">
-                  React.js, Next.js, Node.js, Express.js, MongoDB, Tailwind CSS, and
-                  TypeScript.
-                </span>
-              </p>
+            
             <p>
               I've built projects like a{" "}
               <span className="text-white font-semibold">

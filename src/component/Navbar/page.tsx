@@ -39,7 +39,7 @@ export default function Navbar() {
       <nav
         className={`rounded-3xl border border-white/20 backdrop-blur-xl transition-all duration-500
         ${
-          scrolled
+          scrolled 
             ? "w-full max-w-6xl bg-white/70 px-5 py-3 shadow-2xl"
             : "w-full max-w-7xl bg-white/40 px-6 py-5"
         }`}
