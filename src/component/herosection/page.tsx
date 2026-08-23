@@ -1,7 +1,7 @@
 "use client";
 
+import { Meteors } from "@/components/ui/meteors";
 import { motion } from "framer-motion";
-import { ArrowRight, Download } from "lucide-react";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import Link from "next/link";
 
@@ -10,9 +10,11 @@ const fadeUp = {
     opacity: 0,
     y: 40,
   },
+
   visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
+
     transition: {
       duration: 0.8,
       delay,
@@ -23,9 +25,14 @@ const fadeUp = {
 export default function HeroSection() {
   return (
     <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-950 px-6 text-white">
+
+      {/* ☄️ Meteors Background */}
+      <Meteors number={20} />
+
       {/* Hero Content */}
       <div className="relative z-10 mx-auto flex w-full max-w-5xl justify-center">
         <div className="text-center">
+
           {/* Greeting */}
           <motion.p
             variants={fadeUp}
@@ -46,7 +53,9 @@ export default function HeroSection() {
             className="text-5xl font-black leading-tight md:text-7xl"
           >
             Sangameshwar
+
             <br />
+
             <span className="bg-gradient-to-r from-violet-400 via-cyan-400 to-pink-500 bg-clip-text text-transparent">
               Balaji Gaikwad
             </span>
@@ -78,11 +87,11 @@ export default function HeroSection() {
             className="mx-auto mt-8 max-w-2xl text-lg leading-8 text-slate-400"
           >
             I build modern, scalable and responsive web applications using
-            React, Next.js, Node.js, MongoDB and AI technologies. I enjoy
-            creating clean user experiences and solving real-world problems
-            through software.
+            React, Next.js, Node.js, MongoDB and AI technologies.
+            I enjoy creating clean user experiences and solving
+            real-world problems through software.
           </motion.p>
-          
+
           {/* Social Icons */}
           <motion.div
             variants={fadeUp}
@@ -91,29 +100,30 @@ export default function HeroSection() {
             custom={1}
             className="mt-12 flex justify-center gap-5"
           >
-            {[
-              {
-                icon: <FaGithub size={22} />,
-                href: "https://github.com/SangameshwarGaikwad21",
-              },
-              {
-                icon: <FaLinkedin size={22} />,
-                href: "https://www.linkedin.com/in/sangameshwar-gaikwad-a83426340/",
-              },
-              {
-                icon: <FaEnvelope size={22} />,
-                href: "mailto:sangamgaikwad214@gmail.com",
-              },
-            ].map((item, index) => (
-              <Link
-                key={index}
-                href={item.href}
-                className="rounded-full border border-white/10 bg-white/5 p-4 transition duration-300 hover:-translate-y-2 hover:border-violet-500 hover:bg-violet-500/20"
-              >
-                {item.icon}
-              </Link>
-            ))}
+            <Link
+              href="https://github.com/SangameshwarGaikwad21"
+              target="_blank"
+              className="rounded-full border border-white/10 bg-white/5 p-4 transition duration-300 hover:-translate-y-2 hover:border-violet-500 hover:bg-violet-500/20"
+            >
+              <FaGithub size={22} />
+            </Link>
+
+            <Link
+              href="https://www.linkedin.com/in/sangameshwar-gaikwad-a83426340/"
+              target="_blank"
+              className="rounded-full border border-white/10 bg-white/5 p-4 transition duration-300 hover:-translate-y-2 hover:border-violet-500 hover:bg-violet-500/20"
+            >
+              <FaLinkedin size={22} />
+            </Link>
+
+            <Link
+              href="mailto:sangamgaikwad214@gmail.com"
+              className="rounded-full border border-white/10 bg-white/5 p-4 transition duration-300 hover:-translate-y-2 hover:border-violet-500 hover:bg-violet-500/20"
+            >
+              <FaEnvelope size={22} />
+            </Link>
           </motion.div>
+
         </div>
       </div>
     </section>
