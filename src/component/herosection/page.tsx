@@ -4,6 +4,7 @@ import { Meteors } from "@/components/ui/meteors";
 import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
 import Link from "next/link";
+import { AuroraText } from "@/components/ui/aurora-text"
 
 const fadeUp = {
   hidden: {
@@ -24,7 +25,7 @@ const fadeUp = {
 
 export default function HeroSection() {
   return (
-    <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-950 px-6 text-white">
+    <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 text-white">
 
       {/* ☄️ Meteors Background */}
       <Meteors number={20} />
@@ -43,7 +44,6 @@ export default function HeroSection() {
           >
             👋 Hello, I'm
           </motion.p>
-
           {/* Name */}
           <motion.h1
             variants={fadeUp}
@@ -52,7 +52,7 @@ export default function HeroSection() {
             custom={0.2}
             className="text-5xl font-black leading-tight md:text-7xl"
           >
-            Sangameshwar
+           <AuroraText>Sangameshwar</AuroraText>
 
             <br />
 

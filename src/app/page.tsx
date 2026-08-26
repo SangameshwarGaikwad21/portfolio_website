@@ -7,7 +7,7 @@ import ClickSpark from "@/components/ClickSpark";
 
 export default function Home() {
   return (
-    <>
+    <div className="bg-slate-950">
 
     <ClickSpark
       sparkColor="#ffffff"
@@ -33,7 +33,7 @@ export default function Home() {
       <SkillsPage/>
     </section>
       </ClickSpark>
-    </>
+    </div>
         
   );
 }

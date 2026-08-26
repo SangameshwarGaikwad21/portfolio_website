@@ -10,7 +10,6 @@ const ProjectPage = () => {
      window.open(url, "_blank");
   }
 
-
   const colors = [
   "from-cyan-500 to-blue-500",
   "from-purple-500 to-pink-500",
@@ -53,7 +52,7 @@ const ProjectPage = () => {
 
  
  return (
- <div className="pt-5 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 bg-[#0B1120] ">
+ <div className="pt-5 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
   {projects.map((project, index) => (
     <motion.div
       key={project.id}

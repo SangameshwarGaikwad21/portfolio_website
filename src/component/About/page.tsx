@@ -25,7 +25,7 @@ const item = {
 
 export default function AboutPage() {
   return (
-    <section className="min-h-screen bg-[#0f172a] px-6 py-20 text-white">
+    <section className="min-h-screen px-6 py-20 text-white">
       <motion.div
         variants={container}
         initial="hidden"
