@@ -1,9 +1,10 @@
 import Image from "next/image";
 import HeroSection from "@/component/herosection/page";
 import AboutPage from "@/component/About/page";
-import ProjectPage from "@/component/Project/Project";
+import ProjectPage from "@/component/Project/page";
 import SkillsPage from "@/component/Skills/Skils";  
 import ClickSpark from "@/components/ClickSpark";
+import ContactPage from "@/component/Contact/page";
 
 export default function Home() {
   return (
@@ -25,13 +26,18 @@ export default function Home() {
       <AboutPage/>
     </section>
 
+    <section id="skills">
+      <SkillsPage/>
+    </section>
+
     <section id="projects">
       <ProjectPage/>
     </section>
 
-    <section id="skills">
-      <SkillsPage/>
+    <section id="contact">
+      <ContactPage/>
     </section>
+
       </ClickSpark>
     </div>
         

@@ -11,8 +11,8 @@ export default function Navbar() {
   const navigation = [
   { name: "Home", id: "home" },
   { name: "About", id: "about" },
-  { name: "Projects", id: "projects" },
   { name: "Skills", id: "skills" },
+  { name: "Projects", id: "projects" },
 ];
 
   useEffect(() => {
@@ -102,7 +102,8 @@ export default function Navbar() {
                 : "gap-3 md:gap-4 lg:gap-5"
             }`}
           >
-            <button
+           <button
+              onClick={() => scrollToSection("contact")}
               className={`rounded-2xl bg-slate-900 font-semibold text-white shadow-lg transition-all duration-500 hover:bg-violet-600 ${
                 scrolled
                   ? "px-4 py-2 text-sm"
