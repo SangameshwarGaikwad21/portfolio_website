@@ -2,11 +2,10 @@
 
 import { motion } from "framer-motion";
 import { Mail, MapPin, Send, MessageCircle } from "lucide-react";
-
 import { SiGithub } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa";
-
 import { BorderBeam } from "@/components/ui/border-beam";
+
 
 const ContactPage = () => {
   const contactInfo = [
