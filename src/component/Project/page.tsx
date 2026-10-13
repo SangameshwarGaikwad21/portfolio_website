@@ -12,12 +12,12 @@ const ProjectPage = () => {
   };
 
   const colors = [
-    "from-cyan-500 to-blue-500",
-    "from-purple-500 to-pink-500",
-    "from-green-500 to-emerald-500",
-    "from-orange-500 to-red-500",
-    "from-yellow-500 to-orange-500",
-    "from-indigo-500 to-violet-500",
+    "from-cyan-600 to-blue-500",
+    "from-orange-600 to-pink-500",
+    "from-green-600 to-emerald-500",
+    "from-orange-600 to-red-500",
+    "from-yellow-600 to-orange-500",
+    "from-indigo-600 to-violet-500",
   ];
 
   const projects = [
@@ -36,7 +36,7 @@ const ProjectPage = () => {
       title: "Blog Website",
       description:
         "A full-stack community blogging platform built with modern technologies and scalable backend services.",
-      image: "/blog_website.png",
+      image: "/blog-website.png",
       tech: ["React.js", "Node.js", "MongoDB", "Docker", "Redis"],
       github: "https://github.com/SangameshwarGaikwad21/blog_website",
       live: "https://blogcommunity.vercel.app/",
