@@ -58,7 +58,11 @@ export default function Navbar() {
       { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
     );
 
-    sections.forEach((s) => observer.observe(s));
+      sections.forEach((s) => {
+      if (s) {
+        observer.observe(s);
+      }
+    });
     return () => observer.disconnect();
   }, []);
 
