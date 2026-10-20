@@ -148,7 +148,7 @@ export default function AboutSection() {
               <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-900/70 p-3 shadow-2xl backdrop-blur-xl">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem]">
                   <Image
-                    src="/photos.jpeg"
+                    src="/image.jpg"
                     alt="Portrait of Sangameshwar Gaikwad"
                     fill
                     sizes="(min-width: 1024px) 28rem, 90vw"
