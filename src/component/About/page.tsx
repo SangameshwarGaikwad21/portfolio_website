@@ -36,25 +36,6 @@ const HIGHLIGHTS = [
   },
 ];
 
-const STACK = [
-  "React.js",
-  "Next.js",
-  "Node.js",
-  "Express.js",
-  "MongoDB",
-  "Tailwind CSS",
-  "TypeScript",
-];
-
-const LEARNING = [
-  "Data Structures & Algorithms",
-  "Generative AI",
-  "AI Agents",
-  "Docker",
-  "Redis",
-  "System Design",
-];
-
 export default function AboutSection() {
   const reduce = useReducedMotion();
 
@@ -276,45 +257,7 @@ export default function AboutSection() {
                   </motion.li>
                 )
               )}
-            </motion.ul>
-
-            {/* Tech stack and learning */}
-            <div className="space-y-6">
-              <div>
-                <h3 className="mb-3 text-sm font-semibold text-white">
-                  Main stack
-                </h3>
-
-                <ul className="flex flex-wrap gap-2">
-                  {STACK.map((tech) => (
-                    <li
-                      key={tech}
-                      className="rounded-full border border-cyan-400/25 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-300"
-                    >
-                      {tech}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="mb-3 text-sm font-semibold text-white">
-                  Currently learning
-                </h3>
-
-                <ul className="flex flex-wrap gap-2">
-                  {LEARNING.map((topic) => (
-                    <li
-                      key={topic}
-                      className="rounded-full border border-purple-400/25 bg-purple-400/10 px-3 py-1 text-sm text-purple-300"
-                    >
-                      {topic}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
+            </motion.ul>  
             <p className="text-base leading-8 text-zinc-400 md:text-lg">
               My goal is to join a team where I can solve
               real-world problems, build impactful products and
