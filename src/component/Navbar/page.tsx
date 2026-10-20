@@ -1,6 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+
+import type { MouseEvent } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
@@ -9,93 +16,155 @@ const NAVIGATION = [
   { name: "About", id: "about" },
   { name: "Skills", id: "skills" },
   { name: "Projects", id: "projects" },
-];
+] as const;
 
-const SECTION_IDS = [...NAVIGATION.map((n) => n.id), "contact"];
+const SECTION_IDS: string[] = [
+  ...NAVIGATION.map((item) => item.id),
+  "contact",
+];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeId, setActiveId] = useState("home");
+  const [activeId, setActiveId] = useState<string>("home");
   const [progress, setProgress] = useState(0);
-  const menuButtonRef = useRef(null);
 
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Scroll state and reading progress
   useEffect(() => {
     let ticking = false;
+    let animationFrameId = 0;
 
     const update = () => {
       const y = window.scrollY;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
+
+      const max =
+        document.documentElement.scrollHeight - window.innerHeight;
+
       setScrolled(y > 50);
-      setProgress(max > 0 ? Math.min(y / max, 1) : 0);
+
+      setProgress(
+        max > 0 ? Math.min(y / max, 1) : 0
+      );
+
       ticking = false;
     };
 
     const onScroll = () => {
       if (!ticking) {
         ticking = true;
-        requestAnimationFrame(update);
+        animationFrameId = window.requestAnimationFrame(update);
       }
     };
 
     update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+
+    window.addEventListener("scroll", onScroll, {
+      passive: true,
+    });
+
+    window.addEventListener("resize", update);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", update);
+
+      if (animationFrameId) {
+        window.cancelAnimationFrame(animationFrameId);
+      }
+    };
   }, []);
 
-  /* ---------- Active section highlighting ---------- */
+  // Active section highlighting
   useEffect(() => {
-    const sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(Boolean);
-    if (!sections.length) return;
+    const sections = SECTION_IDS
+      .map((id) => document.getElementById(id))
+      .filter(
+        (section): section is HTMLElement => section !== null
+      );
+
+    if (sections.length === 0) {
+      return;
+    }
 
     const observer = new IntersectionObserver(
-      (entries) => {
+      (entries: IntersectionObserverEntry[]) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveId(entry.target.id);
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
         });
       },
-      // Section counts as "active" when it crosses the middle band of the viewport
-      { rootMargin: "-40% 0px -55% 0px", threshold: 0 }
+      {
+        rootMargin: "-40% 0px -55% 0px",
+        threshold: 0,
+      }
     );
 
-      sections.forEach((s) => {
-      if (s) {
-        observer.observe(s);
-      }
+    sections.forEach((section) => {
+      observer.observe(section);
     });
-    return () => observer.disconnect();
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
-  /* ---------- Mobile menu: Escape to close, lock body scroll, close on desktop resize ---------- */
+  // Mobile menu keyboard handling and scroll locking
   useEffect(() => {
-    if (!menuOpen) return;
+    if (!menuOpen) {
+      return;
+    }
 
-    const onKey = (e) => {
-      if (e.key === "Escape") {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
         setMenuOpen(false);
         menuButtonRef.current?.focus();
       }
     };
+
     const onResize = () => {
-      if (window.innerWidth >= 768) setMenuOpen(false);
+      if (window.innerWidth >= 768) {
+        setMenuOpen(false);
+      }
     };
 
-    const prevOverflow = document.body.style.overflow;
+    const previousOverflow = document.body.style.overflow;
+
     document.body.style.overflow = "hidden";
+
     window.addEventListener("keydown", onKey);
     window.addEventListener("resize", onResize);
 
     return () => {
-      document.body.style.overflow = prevOverflow;
+      document.body.style.overflow = previousOverflow;
+
       window.removeEventListener("keydown", onKey);
       window.removeEventListener("resize", onResize);
     };
   }, [menuOpen]);
 
-  const scrollToSection = useCallback((id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  // Scroll to the selected section
+  const scrollToSection = useCallback((id: string) => {
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+
     setMenuOpen(false);
   }, []);
+
+  // Handle the logo click
+  const handleLogoClick = useCallback(
+    (event: MouseEvent<HTMLAnchorElement>) => {
+      if (window.location.pathname === "/") {
+        event.preventDefault();
+        scrollToSection("home");
+      }
+    },
+    [scrollToSection]
+  );
 
   const linkBase =
     "group relative rounded-md text-slate-600 transition-colors hover:text-slate-950 " +
@@ -115,15 +184,10 @@ export default function Navbar() {
           }`}
       >
         <div className="flex items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr]">
-          {/* ---------- Logo ---------- */}
+          {/* Logo */}
           <Link
             href="/"
-            onClick={(e) => {
-              if (window.location.pathname === "/") {
-                e.preventDefault();
-                scrollToSection("home");
-              }
-            }}
+            onClick={handleLogoClick}
             className="flex w-fit items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2"
             aria-label="Sangam — back to top"
           >
@@ -133,35 +197,44 @@ export default function Navbar() {
                 scrolled ? "h-8 w-8" : "h-10 w-10"
               }`}
             />
+
             <span
               className={`font-bold tracking-tight text-slate-900 transition-all duration-500 motion-reduce:transition-none ${
-                scrolled ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl"
+                scrolled
+                  ? "text-xl sm:text-2xl"
+                  : "text-2xl sm:text-3xl"
               }`}
             >
               Sangam
             </span>
           </Link>
 
-          {/* ---------- Desktop links ---------- */}
+          {/* Desktop navigation */}
           <ul className="hidden items-center gap-2 md:flex lg:gap-4">
             {NAVIGATION.map((item) => {
               const isActive = activeId === item.id;
+
               return (
                 <li key={item.id}>
                   <button
                     type="button"
                     onClick={() => scrollToSection(item.id)}
-                    aria-current={isActive ? "true" : undefined}
+                    aria-current={isActive ? "location" : undefined}
                     className={`${linkBase} px-3 py-2 text-base lg:text-lg ${
                       isActive ? "font-semibold text-slate-950" : ""
                     }`}
                   >
                     {item.name}
+
                     <span
                       aria-hidden="true"
                       className={`absolute inset-x-3 -bottom-0.5 h-0.5 origin-left rounded-full bg-gradient-to-r from-violet-500 to-cyan-400
                         transition-transform duration-300 motion-reduce:transition-none
-                        ${isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}
+                        ${
+                          isActive
+                            ? "scale-x-100"
+                            : "scale-x-0 group-hover:scale-x-100"
+                        }`}
                     />
                   </button>
                 </li>
@@ -169,7 +242,7 @@ export default function Navbar() {
             })}
           </ul>
 
-          {/* ---------- Desktop CTA ---------- */}
+          {/* Desktop contact button */}
           <div className="hidden justify-end md:flex">
             <button
               type="button"
@@ -178,18 +251,20 @@ export default function Navbar() {
                 transition-all duration-300 hover:bg-violet-600 active:scale-95
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2
                 motion-reduce:transition-none ${
-                  scrolled ? "px-4 py-2 text-sm" : "px-6 py-2.5 text-sm lg:text-base"
+                  scrolled
+                    ? "px-4 py-2 text-sm"
+                    : "px-6 py-2.5 text-sm lg:text-base"
                 }`}
             >
               Contact me
             </button>
           </div>
 
-          {/* ---------- Mobile toggle ---------- */}
+          {/* Mobile menu toggle */}
           <button
             ref={menuButtonRef}
             type="button"
-            onClick={() => setMenuOpen((o) => !o)}
+            onClick={() => setMenuOpen((open) => !open)}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -199,24 +274,30 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* ---------- Mobile menu (grid-rows trick = smooth height animation) ---------- */}
+        {/* Mobile menu */}
         <div
           id="mobile-menu"
+          aria-hidden={!menuOpen}
           inert={!menuOpen}
           className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out motion-reduce:transition-none md:hidden ${
-            menuOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+            menuOpen
+              ? "grid-rows-[1fr] opacity-100"
+              : "grid-rows-[0fr] opacity-0"
           }`}
         >
           <div className="overflow-hidden">
             <ul className="flex flex-col gap-1 pb-2 pt-4">
               {NAVIGATION.map((item) => {
                 const isActive = activeId === item.id;
+
                 return (
                   <li key={item.id}>
                     <button
                       type="button"
                       onClick={() => scrollToSection(item.id)}
-                      aria-current={isActive ? "true" : undefined}
+                      aria-current={
+                        isActive ? "location" : undefined
+                      }
                       className={`flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-lg transition-colors
                         focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 ${
                           isActive
@@ -225,8 +306,12 @@ export default function Navbar() {
                         }`}
                     >
                       {item.name}
+
                       {isActive && (
-                        <span aria-hidden="true" className="h-2 w-2 rounded-full bg-gradient-to-br from-violet-500 to-cyan-400" />
+                        <span
+                          aria-hidden="true"
+                          className="h-2 w-2 rounded-full bg-gradient-to-br from-violet-500 to-cyan-400"
+                        />
                       )}
                     </button>
                   </li>
@@ -244,11 +329,13 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* ---------- Scroll progress ---------- */}
+        {/* Scroll progress indicator */}
         <span
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 bottom-0 h-0.5 origin-left bg-gradient-to-r from-violet-500 to-cyan-400"
-          style={{ transform: `scaleX(${progress})` }}
+          style={{
+            transform: `scaleX(${progress})`,
+          }}
         />
       </nav>
     </header>
