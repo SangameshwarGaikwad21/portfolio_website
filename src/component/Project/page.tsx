@@ -46,7 +46,7 @@ const ProjectPage = () => {
       title: "E-Commerce Website",
       description:
         "A modern e-commerce platform with a responsive interface and a scalable application architecture.",
-      image: "/e-Commerce.png",
+      image: "/project2.png",
       tech: ["Next.js", "Node.js", "MongoDB", "TypeScript"],
       github: "https://github.com/SangameshwarGaikwad21/E-commerce",
       live: "https://shop-nexus-eight.vercel.app/",
