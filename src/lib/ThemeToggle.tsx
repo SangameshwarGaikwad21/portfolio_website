@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -12,14 +13,19 @@ export default function ThemeToggle() {
     setMounted(true);
   }, []);
 
+  const buttonClass =
+    "grid h-10 w-10 shrink-0 place-items-center rounded-xl border border-border bg-card text-foreground shadow-sm transition-all duration-300 hover:scale-105 hover:bg-accent active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500";
+
   if (!mounted) {
     return (
       <button
         type="button"
         disabled
         aria-label="Loading theme"
-        className="h-10 w-10 rounded-xl border border-border"
-      />
+        className={buttonClass}
+      >
+        <Sun size={19} />
+      </button>
     );
   }
 
@@ -31,21 +37,12 @@ export default function ThemeToggle() {
       onClick={() => setTheme(isDark ? "light" : "dark")}
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
       title={`Switch to ${isDark ? "light" : "dark"} mode`}
-      className="
-        flex h-10 w-10 items-center justify-center
-        rounded-xl border border-border
-        bg-card text-foreground
-        transition-all duration-300
-        hover:bg-accent hover:text-accent-foreground
-        hover:scale-105 active:scale-95
-        focus-visible:outline-none
-        focus-visible:ring-2 focus-visible:ring-violet-500
-      "
+      className={buttonClass}
     >
       {isDark ? (
-        <Sun size={20} className="text-amber-500" />
+        <Sun size={19} className="text-amber-500" />
       ) : (
-        <Moon size={20} className="text-violet-600" />
+        <Moon size={19} className="text-violet-600" />
       )}
     </button>
   );

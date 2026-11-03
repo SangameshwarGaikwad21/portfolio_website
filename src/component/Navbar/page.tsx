@@ -1,3 +1,4 @@
+
 "use client";
 
 import {
@@ -6,11 +7,11 @@ import {
   useRef,
   useState,
 } from "react";
-import ThemeToggle from "@/lib/ThemeToggle";
-
 import type { MouseEvent } from "react";
+
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "@/lib/ThemeToggle";
 
 const NAVIGATION = [
   { name: "Home", id: "home" },
@@ -41,13 +42,11 @@ export default function Navbar() {
       const y = window.scrollY;
 
       const max =
-        document.documentElement.scrollHeight - window.innerHeight;
+        document.documentElement.scrollHeight -
+        window.innerHeight;
 
       setScrolled(y > 50);
-
-      setProgress(
-        max > 0 ? Math.min(y / max, 1) : 0
-      );
+      setProgress(max > 0 ? Math.min(y / max, 1) : 0);
 
       ticking = false;
     };
@@ -82,15 +81,14 @@ export default function Navbar() {
     const sections = SECTION_IDS
       .map((id) => document.getElementById(id))
       .filter(
-        (section): section is HTMLElement => section !== null
+        (section): section is HTMLElement =>
+          section !== null
       );
 
-    if (sections.length === 0) {
-      return;
-    }
+    if (sections.length === 0) return;
 
     const observer = new IntersectionObserver(
-      (entries: IntersectionObserverEntry[]) => {
+      (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setActiveId(entry.target.id);
@@ -103,20 +101,14 @@ export default function Navbar() {
       }
     );
 
-    sections.forEach((section) => {
-      observer.observe(section);
-    });
+    sections.forEach((section) => observer.observe(section));
 
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   // Mobile menu keyboard handling and scroll locking
   useEffect(() => {
-    if (!menuOpen) {
-      return;
-    }
+    if (!menuOpen) return;
 
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -146,7 +138,7 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
-  // Scroll to the selected section
+  // Scroll to selected section
   const scrollToSection = useCallback((id: string) => {
     document.getElementById(id)?.scrollIntoView({
       behavior: "smooth",
@@ -156,7 +148,7 @@ export default function Navbar() {
     setMenuOpen(false);
   }, []);
 
-  // Handle the logo click
+  // Handle logo click
   const handleLogoClick = useCallback(
     (event: MouseEvent<HTMLAnchorElement>) => {
       if (window.location.pathname === "/") {
@@ -168,28 +160,25 @@ export default function Navbar() {
   );
 
   const linkBase =
-    "group relative rounded-md text-slate-600 transition-colors hover:text-slate-950 " +
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2";
+    "group relative rounded-md text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
   return (
     <header className="fixed inset-x-0 top-3 z-50 flex justify-center px-3 sm:top-5 sm:px-4">
       <nav
         aria-label="Primary"
-        className={`relative w-full overflow-hidden rounded-3xl border border-white/30 backdrop-blur-xl
-          transition-[max-width,padding,background-color,box-shadow] duration-500 ease-out
-          motion-reduce:transition-none
-          ${
-            scrolled || menuOpen
-              ? "max-w-6xl bg-white/80 px-4 py-2.5 shadow-xl shadow-slate-900/10 sm:px-5"
-              : "max-w-7xl bg-white/50 px-4 py-4 sm:px-6"
-          }`}
+        className={`relative w-full overflow-hidden rounded-3xl border border-border/70 bg-background/80 backdrop-blur-xl transition-[max-width,padding,background-color,box-shadow] duration-500 ease-out motion-reduce:transition-none ${
+          scrolled || menuOpen
+            ? "max-w-6xl px-4 py-2.5 shadow-xl shadow-black/10 sm:px-5"
+            : "max-w-7xl px-4 py-4 sm:px-6"
+        }`}
       >
         <div className="flex items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr]">
+
           {/* Logo */}
           <Link
             href="/"
             onClick={handleLogoClick}
-            className="flex w-fit items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2"
+            className="flex w-fit items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             aria-label="Sangam — back to top"
           >
             <span
@@ -200,7 +189,7 @@ export default function Navbar() {
             />
 
             <span
-              className={`font-bold tracking-tight text-slate-900 transition-all duration-500 motion-reduce:transition-none ${
+              className={`font-bold tracking-tight text-foreground transition-all duration-500 motion-reduce:transition-none ${
                 scrolled
                   ? "text-xl sm:text-2xl"
                   : "text-2xl sm:text-3xl"
@@ -220,22 +209,24 @@ export default function Navbar() {
                   <button
                     type="button"
                     onClick={() => scrollToSection(item.id)}
-                    aria-current={isActive ? "location" : undefined}
+                    aria-current={
+                      isActive ? "location" : undefined
+                    }
                     className={`${linkBase} px-3 py-2 text-base lg:text-lg ${
-                      isActive ? "font-semibold text-slate-950" : ""
+                      isActive
+                        ? "font-semibold text-foreground"
+                        : ""
                     }`}
                   >
                     {item.name}
 
                     <span
                       aria-hidden="true"
-                      className={`absolute inset-x-3 -bottom-0.5 h-0.5 origin-left rounded-full bg-gradient-to-r from-violet-500 to-cyan-400
-                        transition-transform duration-300 motion-reduce:transition-none
-                        ${
-                          isActive
-                            ? "scale-x-100"
-                            : "scale-x-0 group-hover:scale-x-100"
-                        }`}
+                      className={`absolute inset-x-3 -bottom-0.5 h-0.5 origin-left rounded-full bg-gradient-to-r from-violet-500 to-cyan-400 transition-transform duration-300 motion-reduce:transition-none ${
+                        isActive
+                          ? "scale-x-100"
+                          : "scale-x-0 group-hover:scale-x-100"
+                      }`}
                     />
                   </button>
                 </li>
@@ -243,20 +234,18 @@ export default function Navbar() {
             })}
           </ul>
 
-          {/* Desktop contact button */}
-          <div className="hidden justify-end md:flex">
-             <ThemeToggle />
+          {/* Desktop actions */}
+          <div className="hidden items-center justify-end gap-3 md:flex">
+            <ThemeToggle />
+
             <button
               type="button"
               onClick={() => scrollToSection("contact")}
-              className={`rounded-2xl bg-slate-900 font-semibold text-white shadow-lg shadow-slate-900/20
-                transition-all duration-300 hover:bg-violet-600 active:scale-95
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2
-                motion-reduce:transition-none ${
-                  scrolled
-                    ? "px-4 py-2 text-sm"
-                    : "px-6 py-2.5 text-sm lg:text-base"
-                }`}
+              className={`rounded-2xl bg-slate-900 font-semibold text-white shadow-lg shadow-slate-900/20 transition-all duration-300 hover:bg-violet-600 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transition-none ${
+                scrolled
+                  ? "px-4 py-2 text-sm"
+                  : "px-6 py-2.5 text-sm lg:text-base"
+              }`}
             >
               Contact me
             </button>
@@ -270,9 +259,13 @@ export default function Navbar() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
-            className="grid h-11 w-11 place-items-center rounded-xl text-slate-900 transition hover:bg-slate-900/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 md:hidden"
+            className="grid h-11 w-11 place-items-center rounded-xl text-foreground transition hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 md:hidden"
           >
-            {menuOpen ? <X size={26} /> : <Menu size={26} />}
+            {menuOpen ? (
+              <X size={26} />
+            ) : (
+              <Menu size={26} />
+            )}
           </button>
         </div>
 
@@ -300,12 +293,11 @@ export default function Navbar() {
                       aria-current={
                         isActive ? "location" : undefined
                       }
-                      className={`flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-lg transition-colors
-                        focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 ${
-                          isActive
-                            ? "bg-violet-500/10 font-semibold text-violet-700"
-                            : "text-slate-700 hover:bg-slate-900/5"
-                        }`}
+                      className={`flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 ${
+                        isActive
+                          ? "bg-violet-500/10 font-semibold text-violet-600 dark:text-violet-400"
+                          : "text-foreground hover:bg-accent"
+                      }`}
                     >
                       {item.name}
 
@@ -321,10 +313,20 @@ export default function Navbar() {
               })}
             </ul>
 
+            {/* Mobile theme toggle */}
+            <div className="mt-3 flex items-center justify-between border-t border-border px-4 pt-3">
+              <span className="text-sm font-medium text-muted-foreground">
+                Appearance
+              </span>
+
+              <ThemeToggle />
+            </div>
+
+            {/* Mobile contact button */}
             <button
               type="button"
               onClick={() => scrollToSection("contact")}
-              className="mb-1 mt-3 w-full rounded-2xl bg-slate-900 px-6 py-3 font-semibold text-white transition hover:bg-violet-600 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2"
+              className="mb-1 mt-3 w-full rounded-2xl bg-slate-900 px-6 py-3 font-semibold text-white transition hover:bg-violet-600 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               Contact me
             </button>
