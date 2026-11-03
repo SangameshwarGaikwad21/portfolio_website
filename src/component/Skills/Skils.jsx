@@ -68,8 +68,8 @@ const SkillsPage = () => {
       skills: [
         { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
         { name: "Redis", icon: SiRedis, color: "#FF4438" },
-        { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
-        { name: "Supabase", icon: SiSupabase, color: "#3ECF8E" },
+       // { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
+       // { name: "Supabase", icon: SiSupabase, color: "#3ECF8E" },
         { name: "Firebase", icon: SiFirebase, color: "#FFCA28" },
       ],
     },
