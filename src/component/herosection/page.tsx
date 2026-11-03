@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Meteors } from "@/components/ui/meteors";
@@ -8,7 +9,12 @@ import {
   type Variants,
 } from "framer-motion";
 
-import { FaGithub, FaLinkedin, FaEnvelope } from "react-icons/fa";
+import {
+  FaGithub,
+  FaLinkedin,
+  FaEnvelope,
+} from "react-icons/fa";
+
 import { ArrowDown } from "lucide-react";
 
 const SOCIALS = [
@@ -35,18 +41,20 @@ const SOCIALS = [
 const ROLES = [
   {
     label: "Full Stack Developer",
-    style: "border-violet-500/30 bg-violet-500/10",
+    style:
+      "border-violet-500/30 bg-violet-500/10 text-violet-600 dark:text-violet-300",
   },
   {
     label: "AI Engineer",
-    style: "border-cyan-500/30 bg-cyan-500/10",
+    style:
+      "border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300",
   },
 ];
 
 export default function HeroSection() {
   const reduce = useReducedMotion();
 
-  // Parent animation: controls the order of child animations.
+  // Parent animation
   const container: Variants = {
     hidden: {},
     visible: {
@@ -57,7 +65,7 @@ export default function HeroSection() {
     },
   };
 
-  // Child animation: used by each motion component.
+  // Child animation
   const item: Variants = {
     hidden: {
       opacity: 0,
@@ -100,14 +108,16 @@ export default function HeroSection() {
         animate="visible"
         className="relative z-10 mx-auto w-full max-w-5xl text-center"
       >
+        {/* Greeting */}
         <motion.p
           variants={item}
-          className="mb-5 text-lg text-violet-400"
+          className="mb-5 text-lg font-medium text-violet-600 dark:text-violet-400"
         >
           <span aria-hidden="true">👋 </span>
           Hello, I&apos;m
         </motion.p>
 
+        {/* Name */}
         <motion.h1
           variants={item}
           className="text-5xl font-black leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
@@ -115,7 +125,7 @@ export default function HeroSection() {
           <AuroraText>Sangameshwar</AuroraText>
           <br />
 
-          <span className="bg-gradient-to-r from-violet-400 via-cyan-400 to-pink-500 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-violet-500 via-cyan-500 to-pink-500 bg-clip-text text-transparent">
             Balaji Gaikwad
           </span>
         </motion.h1>
@@ -138,7 +148,7 @@ export default function HeroSection() {
         {/* Introduction */}
         <motion.p
           variants={item}
-          className="mx-auto mt-8 max-w-2xl text-base leading-8 text-slate-400 sm:text-lg"
+          className="mx-auto mt-8 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg"
         >
           I build modern, scalable and responsive web applications using
           React, Next.js, Node.js, MongoDB and AI technologies. I enjoy
@@ -154,7 +164,7 @@ export default function HeroSection() {
           <button
             type="button"
             onClick={() => scrollTo("projects")}
-            className="w-full rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 px-8 py-3.5 font-semibold text-white shadow-lg shadow-violet-500/25 transition hover:brightness-110 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 sm:w-auto"
+            className="w-full rounded-2xl bg-gradient-to-r from-violet-500 to-cyan-500 px-8 py-3.5 font-semibold text-white shadow-lg shadow-violet-500/25 transition hover:brightness-110 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto"
           >
             View my projects
           </button>
@@ -162,7 +172,7 @@ export default function HeroSection() {
           <button
             type="button"
             onClick={() => scrollTo("contact")}
-            className="w-full rounded-2xl border border-white/15 bg-white/5 px-8 py-3.5 font-semibold text-white backdrop-blur transition hover:border-violet-400 hover:bg-white/10 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 sm:w-auto"
+            className="w-full rounded-2xl border border-border bg-card px-8 py-3.5 font-semibold text-foreground shadow-sm backdrop-blur transition hover:border-violet-500 hover:bg-accent active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:w-auto"
           >
             Contact me
           </button>
@@ -184,7 +194,7 @@ export default function HeroSection() {
                       rel: "noopener noreferrer",
                     }
                   : {})}
-                className="grid h-12 w-12 place-items-center rounded-full border border-white/10 bg-white/5 transition duration-300 hover:-translate-y-1.5 hover:border-violet-500 hover:bg-violet-500/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400"
+                className="grid h-12 w-12 place-items-center rounded-full border border-border bg-card text-muted-foreground shadow-sm transition duration-300 hover:-translate-y-1.5 hover:border-violet-500 hover:bg-violet-500/10 hover:text-violet-600 dark:hover:text-violet-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500"
               >
                 <Icon size={20} aria-hidden="true" />
               </a>
@@ -198,7 +208,7 @@ export default function HeroSection() {
         type="button"
         onClick={() => scrollTo("about")}
         aria-label="Scroll to About section"
-        className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 rounded-full p-2 text-slate-500 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 sm:block"
+        className="absolute bottom-8 left-1/2 z-10 hidden -translate-x-1/2 rounded-full p-2 text-muted-foreground transition hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-violet-500 sm:block"
       >
         <ArrowDown
           size={22}

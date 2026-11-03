@@ -1,3 +1,4 @@
+
 "use client";
 
 import {
@@ -22,6 +23,7 @@ import {
   SiPostgresql,
   SiSupabase,
   SiFirebase,
+  SiRender
 } from "react-icons/si";
 
 import { motion } from "framer-motion";
@@ -43,14 +45,10 @@ const SkillsPage = () => {
       title: "Frameworks & Libraries",
       skills: [
         { name: "React", icon: SiReact, color: "#61DAFB" },
-        { name: "Next.js", icon: SiNextdotjs, color: "#FFFFFF" },
+        { name: "Next.js", icon: SiNextdotjs, color: "#000000" },
         { name: "Node.js", icon: SiNodedotjs, color: "#339933" },
-        { name: "Express.js", icon: SiExpress, color: "#FFFFFF" },
-        {
-          name: "Tailwind CSS",
-          icon: SiTailwindcss,
-          color: "#06B6D4",
-        },
+        { name: "Express.js", icon: SiExpress, color: "#777777" },
+        { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4" },
         { name: "Framer Motion", icon: SiFramer, color: "#FF0080" },
       ],
     },
@@ -59,9 +57,10 @@ const SkillsPage = () => {
       skills: [
         { name: "Docker", icon: SiDocker, color: "#2496ED" },
         { name: "Git", icon: SiGit, color: "#F05032" },
-        { name: "GitHub", icon: SiGithub, color: "#FFFFFF" },
+        { name: "GitHub", icon: SiGithub, color: "#181717" },
         { name: "Postman", icon: SiPostman, color: "#FF6C37" },
-        { name: "Vercel", icon: SiVercel, color: "#FFFFFF" },
+        { name: "Vercel", icon: SiVercel, color: "#000000" },
+        { name: "Render", icon: SiRender, color: "#46E3B7" },
       ],
     },
     {
@@ -69,6 +68,9 @@ const SkillsPage = () => {
       skills: [
         { name: "MongoDB", icon: SiMongodb, color: "#47A248" },
         { name: "Redis", icon: SiRedis, color: "#FF4438" },
+        { name: "PostgreSQL", icon: SiPostgresql, color: "#4169E1" },
+        { name: "Supabase", icon: SiSupabase, color: "#3ECF8E" },
+        { name: "Firebase", icon: SiFirebase, color: "#FFCA28" },
       ],
     },
   ];
@@ -76,7 +78,10 @@ const SkillsPage = () => {
   return (
     <section className="relative min-h-screen overflow-hidden bg-background px-6 py-24 text-foreground transition-colors duration-300">
       {/* Background Glow */}
-      <div className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-[150px]" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-[150px]"
+      />
 
       <div className="relative mx-auto max-w-7xl">
         {/* Heading */}
@@ -87,15 +92,15 @@ const SkillsPage = () => {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <p className="mb-4 text-sm font-semibold tracking-[0.25em] text-blue-400">
+          <p className="mb-4 text-sm font-semibold tracking-[0.25em] text-blue-600 dark:text-blue-400">
             MY TECH STACK
           </p>
 
-          <h1 className="text-4xl font-bold tracking-tight text-white md:text-5xl">
+          <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl">
             Technologies I Work With
           </h1>
 
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-zinc-400 md:text-lg">
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
             A collection of technologies, frameworks, tools, and platforms I
             use to build modern, scalable, and high-performance applications.
           </p>
@@ -113,9 +118,7 @@ const SkillsPage = () => {
                 duration: 0.6,
                 delay: index * 0.1,
               }}
-              whileHover={{
-                y: -5,
-              }}
+              whileHover={{ y: -5 }}
               className="group relative overflow-hidden rounded-3xl border border-border bg-card/90 p-8 shadow-xl backdrop-blur-xl transition-colors duration-300"
             >
               {/* Card Glow */}
@@ -123,9 +126,9 @@ const SkillsPage = () => {
 
               {/* Category Header */}
               <div className="relative mb-8 flex items-center gap-4">
-                <div className="h-3 w-3 rounded-full bg-blue-400 shadow-[0_0_20px_rgba(96,165,250,0.9)]" />
+                <div className="h-3 w-3 rounded-full bg-blue-500 shadow-[0_0_20px_rgba(96,165,250,0.9)]" />
 
-                <h2 className="text-xl font-semibold tracking-wide text-white">
+                <h2 className="text-xl font-semibold tracking-wide text-foreground">
                   {category.title}
                 </h2>
               </div>
@@ -145,21 +148,21 @@ const SkillsPage = () => {
                       whileTap={{
                         scale: 0.96,
                       }}
-                      className="group/skill flex cursor-pointer items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 backdrop-blur-sm transition-colors duration-300 hover:border-white/20 hover:bg-white/[0.08]"
+                      className="group/skill flex cursor-pointer items-center gap-3 rounded-2xl border border-border bg-background/60 px-4 py-3 backdrop-blur-sm transition-colors duration-300 hover:border-blue-500/40 hover:bg-accent"
                     >
                       {/* Icon */}
                       <div
-                        className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/5 text-xl transition-transform duration-300 group-hover/skill:scale-110"
+                        className="flex h-9 w-9 items-center justify-center rounded-xl bg-muted text-xl transition-transform duration-300 group-hover/skill:scale-110"
                         style={{
                           color: skill.color,
-                          boxShadow: `0 0 20px ${skill.color}30`,
+                          boxShadow: `0 0 20px ${skill.color}20`,
                         }}
                       >
-                        <Icon />
+                        <Icon aria-hidden="true" />
                       </div>
 
                       {/* Skill Name */}
-                      <span className="text-sm font-medium text-zinc-300 transition-colors group-hover/skill:text-white">
+                      <span className="text-sm font-medium text-foreground transition-colors group-hover/skill:text-blue-600 dark:group-hover/skill:text-blue-400">
                         {skill.name}
                       </span>
                     </motion.div>

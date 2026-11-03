@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -100,7 +101,7 @@ export default function AboutSection() {
             </span>
           </h2>
 
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-zinc-400 md:text-lg">
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
             A developer focused on building modern, scalable and
             user-friendly web applications.
           </p>
@@ -126,7 +127,7 @@ export default function AboutSection() {
                 className="absolute -inset-6 rounded-[2rem] bg-gradient-to-r from-cyan-500/30 via-blue-500/20 to-purple-500/30 opacity-60 blur-3xl transition-opacity duration-700 group-hover:opacity-100"
               />
 
-              <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-900/70 p-3 shadow-2xl backdrop-blur-xl">
+              <div className="relative overflow-hidden rounded-[2rem] border border-border bg-card p-3 shadow-2xl backdrop-blur-xl transition-colors duration-300">
                 <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem]">
                   <Image
                     src="/image.jpg"
@@ -160,13 +161,15 @@ export default function AboutSection() {
 
               {/* Floating badge */}
               <motion.div
-                animate={reduce ? undefined : { y: [0, -8, 0] }}
+                animate={
+                  reduce ? undefined : { y: [0, -8, 0] }
+                }
                 transition={{
                   duration: 3,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="absolute -bottom-5 right-2 rounded-2xl border border-white/10 bg-zinc-900/90 px-4 py-3 shadow-xl backdrop-blur-xl sm:-right-4 sm:px-5 sm:py-4"
+                className="absolute -bottom-5 right-2 rounded-2xl border border-border bg-card/95 px-4 py-3 text-card-foreground shadow-xl backdrop-blur-xl transition-colors duration-300 sm:-right-4 sm:px-5 sm:py-4"
               >
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500">
@@ -177,11 +180,12 @@ export default function AboutSection() {
                   </div>
 
                   <div>
-                    <p className="text-sm font-semibold">
+                    <p className="text-sm font-semibold text-foreground">
                       Full Stack Developer
                     </p>
-                    <p className="text-xs text-zinc-400">
-                      Building &amp; learning
+
+                    <p className="text-xs text-muted-foreground">
+                      Building & learning
                     </p>
                   </div>
                 </div>
@@ -190,13 +194,16 @@ export default function AboutSection() {
           </motion.div>
 
           {/* About content */}
-          <motion.div variants={item} className="space-y-8">
+          <motion.div
+            variants={item}
+            className="space-y-8"
+          >
             {/* Introduction */}
-            <div className="space-y-5 text-base leading-8 text-zinc-400 md:text-lg">
+            <div className="space-y-5 text-base leading-8 text-muted-foreground md:text-lg">
               <p>
                 I&apos;m a final-year Computer Science Engineering
                 student and a{" "}
-                <strong className="font-semibold text-white">
+                <strong className="font-semibold text-foreground">
                   Full Stack Developer
                 </strong>{" "}
                 from Pune, India.
@@ -204,7 +211,7 @@ export default function AboutSection() {
 
               <p>
                 I completed my{" "}
-                <strong className="font-semibold text-white">
+                <strong className="font-semibold text-foreground">
                   Diploma in Computer Engineering
                 </strong>{" "}
                 at JSPM Polytechnic, Hadapsar, Pune with First
@@ -238,27 +245,28 @@ export default function AboutSection() {
                       stiffness: 250,
                       damping: 20,
                     }}
-                    className="group rounded-2xl border border-white/10 bg-white/[0.03] p-4 transition-colors duration-300 hover:bg-white/[0.06]"
+                    className="group rounded-2xl border border-border bg-card/50 p-4 transition-colors duration-300 hover:border-cyan-500/40 hover:bg-accent"
                   >
-                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 text-cyan-400 transition-transform duration-300 group-hover:scale-110">
+                    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400/20 to-blue-500/20 text-cyan-600 transition-transform duration-300 group-hover:scale-110 dark:text-cyan-400">
                       <Icon
                         className="h-5 w-5"
                         aria-hidden="true"
                       />
                     </div>
 
-                    <h3 className="text-sm font-semibold">
+                    <h3 className="text-sm font-semibold text-foreground">
                       {title}
                     </h3>
 
-                    <p className="mt-1 text-xs leading-relaxed text-zinc-500">
+                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
                       {description}
                     </p>
                   </motion.li>
                 )
               )}
-            </motion.ul>  
-            <p className="text-base leading-8 text-zinc-400 md:text-lg">
+            </motion.ul>
+
+            <p className="text-base leading-8 text-muted-foreground md:text-lg">
               My goal is to join a team where I can solve
               real-world problems, build impactful products and
               keep learning every day.
@@ -269,11 +277,11 @@ export default function AboutSection() {
         {/* Footer strip */}
         <motion.div
           variants={item}
-          className="mt-20 flex flex-col items-center justify-center gap-3 text-center text-sm text-zinc-400 sm:mt-24 sm:flex-row sm:gap-8"
+          className="mt-20 flex flex-col items-center justify-center gap-3 text-center text-sm text-muted-foreground sm:mt-24 sm:flex-row sm:gap-8"
         >
           <span className="flex items-center gap-2">
             <GraduationCap
-              className="h-5 w-5 text-cyan-400"
+              className="h-5 w-5 text-cyan-600 dark:text-cyan-400"
               aria-hidden="true"
             />
             Computer Science Engineering student
@@ -281,7 +289,7 @@ export default function AboutSection() {
 
           <span className="flex items-center gap-2">
             <MapPin
-              className="h-5 w-5 text-cyan-400"
+              className="h-5 w-5 text-cyan-600 dark:text-cyan-400"
               aria-hidden="true"
             />
             Pune, India

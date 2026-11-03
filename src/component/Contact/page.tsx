@@ -1,8 +1,14 @@
+
 "use client";
 
-import { FormEvent, useState } from "react";
+import { useState, type FormEvent } from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Send, MessageCircle } from "lucide-react";
+import {
+  Mail,
+  MapPin,
+  Send,
+  MessageCircle,
+} from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { FaLinkedin } from "react-icons/fa";
 import { BorderBeam } from "@/components/ui/border-beam";
@@ -42,21 +48,27 @@ export default function ContactPage() {
       email: String(formData.get("email") ?? "").trim(),
       subject: String(formData.get("subject") ?? "").trim(),
       message: String(formData.get("message") ?? "").trim(),
-      website: String(formData.get("website") ?? "").trim(), // honeypot field
+      website: String(formData.get("website") ?? "").trim(),
     };
 
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(payload),
       });
 
-      const result: { error?: string; message?: string } =
-        await response.json();
+      const result: {
+        error?: string;
+        message?: string;
+      } = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || "Unable to send your message.");
+        throw new Error(
+          result.error || "Unable to send your message."
+        );
       }
 
       setIsSuccess(true);
@@ -64,6 +76,7 @@ export default function ContactPage() {
       form.reset();
     } catch (error) {
       setIsSuccess(false);
+
       setStatus(
         error instanceof Error
           ? error.message
@@ -75,15 +88,16 @@ export default function ContactPage() {
   }
 
   const inputClassName =
-  "w-full rounded-xl border border-border bg-card px-4 py-3.5 text-foreground outline-none transition placeholder:text-muted-foreground focus:border-cyan-400/70 focus:ring-2 focus:ring-cyan-400/10";
+    "w-full rounded-xl border border-border bg-background px-4 py-3.5 text-foreground outline-none transition placeholder:text-muted-foreground focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/10";
 
   return (
     <section
       id="contact"
-      className="relative min-h-screen scroll-mt-32 overflow-hidden px-6 py-24 text-white"
+      className="relative min-h-screen scroll-mt-32 overflow-hidden bg-background px-6 py-24 text-foreground transition-colors duration-300"
     >
-      {/* Background glow */}
+      {/* Background Glow */}
       <div className="pointer-events-none absolute left-1/4 top-20 h-72 w-72 rounded-full bg-cyan-500/10 blur-[130px]" />
+
       <div className="pointer-events-none absolute bottom-10 right-1/4 h-80 w-80 rounded-full bg-purple-500/10 blur-[150px]" />
 
       <div className="relative mx-auto max-w-7xl">
@@ -95,26 +109,26 @@ export default function ContactPage() {
           transition={{ duration: 0.6 }}
           className="mb-16 text-center"
         >
-          <p className="mb-4 text-sm font-semibold tracking-[0.25em] text-cyan-400">
+          <p className="mb-4 text-sm font-semibold tracking-[0.25em] text-cyan-700 dark:text-cyan-400">
             GET IN TOUCH
           </p>
 
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
             Let&apos;s Work{" "}
             <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent">
               Together
             </span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-zinc-400 md:text-lg">
+          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
             Have a project, an idea, or just want to connect? Send me a message.
             I&apos;ll get back to you as soon as possible.
           </p>
         </motion.div>
 
-        {/* Main grid */}
+        {/* Main Grid */}
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-          {/* Left side */}
+          {/* Left Side */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -122,21 +136,23 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
             className="space-y-5"
           >
-            <div className="group flex items-center gap-5 rounded-2xl border border-border bg-card/70 p-5 transition-all duration-300 hover:border-cyan-400/40 hover:bg-accent">
-              <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600">
+            {/* Introduction Card */}
+            <div className="rounded-2xl border border-border bg-card/70 p-6 text-card-foreground transition-colors duration-300 hover:border-cyan-500/40 hover:bg-accent">
+              <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600">
                 <MessageCircle className="h-7 w-7 text-white" />
               </div>
 
-              <h2 className="text-2xl font-bold">
+              <h2 className="text-2xl font-bold text-foreground">
                 Let&apos;s start a conversation
               </h2>
 
-              <p className="mt-4 leading-7 text-zinc-400">
+              <p className="mt-4 leading-7 text-muted-foreground">
                 Whether you have a project idea, an opportunity, or simply want
                 to talk about technology, I&apos;m always happy to connect.
               </p>
             </div>
 
+            {/* Contact Information */}
             {contactInfo.map((item) => {
               const Icon = item.icon;
 
@@ -146,21 +162,26 @@ export default function ContactPage() {
                   href={item.link}
                   whileHover={{ x: 5 }}
                   whileTap={{ scale: 0.98 }}
-                  className="group flex items-center gap-5 rounded-2xl border border-white/10 bg-white/[0.03] p-5 transition-all duration-300 hover:border-cyan-400/40 hover:bg-white/[0.06]"
+                  className="group flex items-center gap-5 rounded-2xl border border-border bg-card/70 p-5 text-card-foreground transition-all duration-300 hover:border-cyan-500/40 hover:bg-accent"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-400 transition duration-300 group-hover:scale-110 group-hover:bg-cyan-400/20">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-cyan-500/10 text-cyan-600 transition duration-300 group-hover:scale-110 group-hover:bg-cyan-500/20 dark:text-cyan-400">
                     <Icon className="h-5 w-5" />
                   </div>
 
                   <div>
-                    <p className="text-sm text-zinc-500">{item.title}</p>
-                    <p className="font-medium text-zinc-200">{item.value}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {item.title}
+                    </p>
+
+                    <p className="break-all font-medium text-foreground">
+                      {item.value}
+                    </p>
                   </div>
                 </motion.a>
               );
             })}
 
-            {/* Social links */}
+            {/* Social Links */}
             <div className="flex gap-4 pt-3">
               <motion.a
                 href="https://github.com/SangameshwarGaikwad21"
@@ -169,7 +190,7 @@ export default function ContactPage() {
                 aria-label="GitHub profile"
                 whileHover={{ y: -4, scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-zinc-300 transition-all duration-300 hover:border-white/30 hover:bg-white/10 hover:text-white"
+                className="flex h-14 w-14 items-center justify-center rounded-2xl border border-border bg-card text-foreground transition-all duration-300 hover:border-primary/30 hover:bg-accent"
               >
                 <SiGithub className="h-6 w-6" />
               </motion.a>
@@ -181,25 +202,34 @@ export default function ContactPage() {
                 aria-label="LinkedIn profile"
                 whileHover={{ y: -4, scale: 1.08 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5 transition-all duration-300 hover:border-[#0A66C2]/50 hover:bg-[#0A66C2]/10"
+                className="flex h-14 w-14 items-center justify-center rounded-2xl border border-border bg-card transition-all duration-300 hover:border-[#0A66C2]/50 hover:bg-[#0A66C2]/10"
               >
                 <FaLinkedin className="h-7 w-7 text-[#0A66C2]" />
               </motion.a>
             </div>
           </motion.div>
 
-          {/* Right side: working contact form */}
+          {/* Right Side: Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-900/70 p-6 shadow-2xl backdrop-blur-xl sm:p-8"
+            className="relative overflow-hidden rounded-3xl border border-border bg-card/90 p-6 text-card-foreground shadow-2xl backdrop-blur-xl transition-colors duration-300 sm:p-8"
           >
-            <form onSubmit={handleSubmit} className="relative space-y-6">
-              {/* Honeypot anti-spam field: hidden from real visitors */}
-              <div className="absolute -left-[10000px]" aria-hidden="true">
-                <label htmlFor="website">Leave this field empty</label>
+            <form
+              onSubmit={handleSubmit}
+              className="relative space-y-6"
+            >
+              {/* Honeypot Anti-Spam Field */}
+              <div
+                className="absolute -left-[10000px]"
+                aria-hidden="true"
+              >
+                <label htmlFor="website">
+                  Leave this field empty
+                </label>
+
                 <input
                   id="website"
                   name="website"
@@ -209,13 +239,15 @@ export default function ContactPage() {
                 />
               </div>
 
+              {/* Name */}
               <div>
                 <label
                   htmlFor="name"
-                  className="mt-4 leading-7 text-muted-foreground"
+                  className="mb-2 block text-sm font-medium text-foreground"
                 >
                   Your Name
                 </label>
+
                 <input
                   id="name"
                   name="name"
@@ -229,13 +261,15 @@ export default function ContactPage() {
                 />
               </div>
 
+              {/* Email */}
               <div>
                 <label
                   htmlFor="email"
-                  className="mb-2 block text-sm font-medium text-zinc-300"
+                  className="mb-2 block text-sm font-medium text-foreground"
                 >
                   Email Address
                 </label>
+
                 <input
                   id="email"
                   name="email"
@@ -248,13 +282,15 @@ export default function ContactPage() {
                 />
               </div>
 
+              {/* Subject */}
               <div>
                 <label
                   htmlFor="subject"
-                  className="mb-2 block text-sm font-medium text-zinc-300"
+                  className="mb-2 block text-sm font-medium text-foreground"
                 >
                   Subject
                 </label>
+
                 <input
                   id="subject"
                   name="subject"
@@ -267,13 +303,15 @@ export default function ContactPage() {
                 />
               </div>
 
+              {/* Message */}
               <div>
                 <label
                   htmlFor="message"
-                  className="mb-2 block text-sm font-medium text-zinc-300"
+                  className="mb-2 block text-sm font-medium text-foreground"
                 >
                   Message
                 </label>
+
                 <textarea
                   id="message"
                   name="message"
@@ -286,23 +324,32 @@ export default function ContactPage() {
                 />
               </div>
 
+              {/* Submit Button */}
               <motion.button
                 type="submit"
                 disabled={isSending}
-                whileHover={{ scale: isSending ? 1 : 1.02 }}
-                whileTap={{ scale: isSending ? 1 : 0.98 }}
+                whileHover={{
+                  scale: isSending ? 1 : 1.02,
+                }}
+                whileTap={{
+                  scale: isSending ? 1 : 0.98,
+                }}
                 className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 px-5 py-4 font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-cyan-500/25 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 <Send className="h-5 w-5" />
+
                 {isSending ? "Sending..." : "Send Message"}
               </motion.button>
 
+              {/* Success / Error Message */}
               {status && (
                 <p
                   role="status"
                   aria-live="polite"
                   className={`text-sm ${
-                    isSuccess ? "text-emerald-400" : "text-rose-400"
+                    isSuccess
+                      ? "text-emerald-600 dark:text-emerald-400"
+                      : "text-rose-600 dark:text-rose-400"
                   }`}
                 >
                   {status}
@@ -310,11 +357,13 @@ export default function ContactPage() {
               )}
             </form>
 
+            {/* Border Beam */}
             <BorderBeam
               duration={10}
               size={300}
               className="from-transparent via-cyan-400 to-transparent"
             />
+
             <BorderBeam
               duration={10}
               delay={5}
@@ -331,7 +380,7 @@ export default function ContactPage() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
-          className="mt-20 border-t border-white/10 pt-8 text-center text-sm text-zinc-500"
+          className="mt-20 border-t border-border pt-8 text-center text-sm text-muted-foreground"
         >
           © {new Date().getFullYear()} Sangam. Built with Next.js & ❤️
         </motion.div>
