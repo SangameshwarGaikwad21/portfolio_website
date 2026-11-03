@@ -75,7 +75,7 @@ export default function ContactPage() {
   }
 
   const inputClassName =
-    "w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3.5 text-white outline-none transition placeholder:text-zinc-600 focus:border-cyan-400/70 focus:ring-2 focus:ring-cyan-400/10";
+  "w-full rounded-xl border border-border bg-card px-4 py-3.5 text-foreground outline-none transition placeholder:text-muted-foreground focus:border-cyan-400/70 focus:ring-2 focus:ring-cyan-400/10";
 
   return (
     <section
@@ -122,7 +122,7 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
             className="space-y-5"
           >
-            <div className="rounded-3xl border border-white/10 bg-zinc-900/70 p-8 backdrop-blur-xl">
+            <div className="group flex items-center gap-5 rounded-2xl border border-border bg-card/70 p-5 transition-all duration-300 hover:border-cyan-400/40 hover:bg-accent">
               <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-400 to-blue-600">
                 <MessageCircle className="h-7 w-7 text-white" />
               </div>
@@ -212,7 +212,7 @@ export default function ContactPage() {
               <div>
                 <label
                   htmlFor="name"
-                  className="mb-2 block text-sm font-medium text-zinc-300"
+                  className="mt-4 leading-7 text-muted-foreground"
                 >
                   Your Name
                 </label>

@@ -74,7 +74,7 @@ const SkillsPage = () => {
   ];
 
   return (
-    <section className="relative min-h-screen overflow-hidden px-6 py-24">
+    <section className="relative min-h-screen overflow-hidden bg-background px-6 py-24 text-foreground transition-colors duration-300">
       {/* Background Glow */}
       <div className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-blue-500/10 blur-[150px]" />
 
@@ -116,7 +116,7 @@ const SkillsPage = () => {
               whileHover={{
                 y: -5,
               }}
-              className="group relative overflow-hidden rounded-3xl border border-white/10 bg-zinc-900/70 p-8 shadow-2xl backdrop-blur-xl"
+              className="group relative overflow-hidden rounded-3xl border border-border bg-card/90 p-8 shadow-xl backdrop-blur-xl transition-colors duration-300"
             >
               {/* Card Glow */}
               <div className="pointer-events-none absolute -right-20 -top-20 h-40 w-40 rounded-full bg-blue-500/10 blur-3xl transition duration-500 group-hover:bg-purple-500/20" />

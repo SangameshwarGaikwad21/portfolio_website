@@ -6,6 +6,7 @@ import {
   useRef,
   useState,
 } from "react";
+import ThemeToggle from "@/lib/ThemeToggle";
 
 import type { MouseEvent } from "react";
 import Link from "next/link";
@@ -244,6 +245,7 @@ export default function Navbar() {
 
           {/* Desktop contact button */}
           <div className="hidden justify-end md:flex">
+             <ThemeToggle />
             <button
               type="button"
               onClick={() => scrollToSection("contact")}

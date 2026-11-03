@@ -66,7 +66,7 @@ const ProjectPage = () => {
   };
 
   return (
-    <section className="relative w-full overflow-x-hidden bg-zinc-950 px-4 py-16 text-white sm:px-6 sm:py-20 md:py-24">
+    <section className="relative w-full overflow-x-hidden bg-background px-4 py-16 text-foreground transition-colors duration-300 sm:px-6 sm:py-20 md:py-24">
       {/* Background Glow */}
       <div className="pointer-events-none absolute left-1/2 top-0 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-purple-500/10 blur-[100px] sm:h-[500px] sm:w-[500px] sm:blur-[150px]" />
 

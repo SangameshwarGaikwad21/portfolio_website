@@ -68,7 +68,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative overflow-hidden px-6 py-24 text-white sm:py-32"
+      className="relative overflow-hidden bg-background px-6 py-24 text-foreground transition-colors duration-300 sm:py-32"
     >
       {/* Background glows */}
       <div

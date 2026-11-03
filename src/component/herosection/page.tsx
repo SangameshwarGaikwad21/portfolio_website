@@ -83,7 +83,7 @@ export default function HeroSection() {
   return (
     <section
       id="home"
-      className="relative flex min-h-svh items-center justify-center overflow-hidden px-6 pb-24 pt-32 text-white"
+      className="relative flex min-h-svh items-center justify-center overflow-hidden bg-background px-6 pb-24 pt-32 text-foreground transition-colors duration-300"
     >
       {/* Background */}
       <Meteors number={20} />
